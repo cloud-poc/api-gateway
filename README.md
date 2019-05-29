@@ -28,4 +28,5 @@
 6. send a post request to http://localhost:8080/actuator/refresh
 7. then test #4 on these two endpoints, you will get same response, 
 > health-check.status: running
+
 that mean even refresh the config on one endpoint, spring cloud bus will help to cascade the update to all registerred client through Message Queue
