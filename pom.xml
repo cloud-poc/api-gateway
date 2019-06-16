@@ -38,7 +38,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -73,6 +73,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -98,7 +103,8 @@
 					</from>
 					<to>
 						<image>registry.hub.docker.com/akjamie/${project.name}:${project.version}</image>
-						<credHelper>docker-credential-wincred</credHelper>
+						<!-- <credHelper>wincred</credHelper> -->
+						<credHelper>osxkeychain</credHelper>
 					</to>
 					<container>
 						<useCurrentTimestamp>true</useCurrentTimestamp>

@@ -10,35 +10,42 @@ spring:
   sleuth.sampler.probability: 1
   cloud:
     config:
+      discovery:
+        enabled: ${CONFIG_DISCOVERY_ENABLED:false}
+        service-id: ${CONFIG_DISCOVERY_SERVICE_ID:config-service}
       uri:
-      - ${CONFIG-SERVICE-URL:http://localhost:8888}
+      - ${CONFIG_SERVICE_URL:http://localhost:8888}
     refresh.enabled: true
     bus:
       enabled: true
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${BUS_RABBITMQ_HOST:localhost}
+    port: ${BUS_RABBITMQ_PORT:5672}
+    username: ${BUS_RABBITMQ_USERNAME:guest}
+    password: ${BUS_RABBITMQ_PASSWORD:guest}
 
 eureka.client.service-url:
-  defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8000/eureka/}
+  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
   
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+
+ribbon:
+  eureka:
+    enabled: true
   
-zuul:
-  prefix: /proxy
-  retryable: true
-  sensitive-headers: X-XHR-User-ID
-  ignored-services: '*'
-  routes:
-    catalogservice:
-      path: /catalog/**
-      serviceId: catalog-service
-    inventoryservice:
-      path: /inventory/**
-      serviceId: inventory-service
+#zuul:
+#  prefix: /proxy
+#  retryable: true
+#  sensitive-headers: X-XHR-User-ID
+#  ignored-services: '*'
+#  routes:
+#    catalogservice:
+#      path: /catalog/**
+#      serviceId: catalog-service
+#    inventoryservice:
+#      path: /inventory/**
+#      serviceId: inventory-service
