@@ -30,15 +30,15 @@ management:
       exposure:
         include: '*'
   
-zuul:
-  prefix: /proxy
-  retryable: true
-  sensitive-headers: X-XHR-User-ID
-  ignored-services: '*'
-  routes:
-    catalogservice:
-      path: /catalog/**
-      serviceId: catalog-service
-    inventoryservice:
-      path: /inventory/**
-      serviceId: inventory-service
+#zuul:
+#  prefix: /proxy
+#  retryable: true
+#  sensitive-headers: X-XHR-User-ID
+#  ignored-services: '*'
+#  routes:
+#    catalogservice:
+#      path: /catalog/**
+#      serviceId: catalog-service
+#    inventoryservice:
+#      path: /inventory/**
+#      serviceId: inventory-service
