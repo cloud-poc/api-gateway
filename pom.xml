@@ -19,6 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jib.version>1.2.0</jib.version>
+		<common.version>1.0.0</common.version>
 	</properties>
 
 	<dependencyManagement>
@@ -35,10 +36,16 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.akj.springboot.common</groupId>
+			<artifactId>api-common</artifactId>
+			<version>${common.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -75,6 +82,27 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security.oauth.boot</groupId>
+			<artifactId>spring-security-oauth2-autoconfigure</artifactId>
+			<version>2.1.5.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>
@@ -98,7 +126,8 @@
 					</from>
 					<to>
 						<image>registry.hub.docker.com/akjamie/${project.name}:${project.version}</image>
-						<credHelper>docker-credential-wincred</credHelper>
+						<!-- <credHelper>wincred</credHelper> -->
+						<credHelper>osxkeychain</credHelper>
 					</to>
 					<container>
 						<useCurrentTimestamp>true</useCurrentTimestamp>
