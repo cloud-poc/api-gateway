@@ -35,21 +35,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,bus-refresh,hystrix.stream
+        include: health,info,bus-refresh,hystrix.stream,prometheus,metrics
+  metrics:
+    export.prometheus.enabled: true
+    tags.application: ${spring.application.name}
 
 ribbon:
   eureka:
     enabled: true
   
-#zuul:
-#  prefix: /proxy
-#  retryable: true
-#  sensitive-headers: X-XHR-User-ID
-#  ignored-services: '*'
-#  routes:
-#    catalogservice:
-#      path: /catalog/**
-#      serviceId: catalog-service
-#    inventoryservice:
-#      path: /inventory/**
-#      serviceId: inventory-service
+
