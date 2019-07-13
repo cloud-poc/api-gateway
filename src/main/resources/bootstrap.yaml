@@ -6,39 +6,42 @@ spring:
     active:
     - dev
   application.name: api-gateway
-  zipkin.base-url: ${ZIPKIN_BASE_URL:http://localhost:9411/}
-  sleuth.sampler.probability: 1
+  zipkin:
+    base-url: ${ZIPKIN_BASE_URL:http://localhost:9411/}
+    sender:
+      type: web
+    discovery-client-enabled: false
+  sleuth.sampler.probability: 1.0
   cloud:
     config:
+      discovery:
+        enabled: ${CONFIG_DISCOVERY_ENABLED:false}
+        service-id: ${CONFIG_DISCOVERY_SERVICE_ID:config-service}
       uri:
-      - ${CONFIG-SERVICE-URL:http://localhost:8888}
+      - ${CONFIG_SERVICE_URL:http://localhost:8888}
     refresh.enabled: true
     bus:
       enabled: true
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
 
 eureka.client.service-url:
-  defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8000/eureka/}
+  defaultZone: ${EUREKA_CLIENT_SERVICE_URL:http://localhost:8761/eureka/}
   
 management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health,info,bus-refresh,hystrix.stream,prometheus,metrics
+  metrics:
+    export.prometheus.enabled: true
+    tags.application: ${spring.application.name}
+
+ribbon:
+  eureka:
+    enabled: true
   
-zuul:
-  prefix: /proxy
-  retryable: true
-  sensitive-headers: X-XHR-User-ID
-  ignored-services: '*'
-  routes:
-    catalogservice:
-      path: /catalog/**
-      serviceId: catalog-service
-    inventoryservice:
-      path: /inventory/**
-      serviceId: inventory-service
+
